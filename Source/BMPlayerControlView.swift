@@ -169,9 +169,9 @@ open class BMPlayerControlView: UIView {
      - parameter totalDuration: total duration of the video
      - parameter isAdd:         isAdd
      */
-    open func showSeekToView(to toSecound: TimeInterval, total totalDuration:TimeInterval, isAdd: Bool) {
+    open func showSeekToView(to toSecound: TimeInterval, changed: TimeInterval, total totalDuration:TimeInterval, isAdd: Bool) {
         seekToView.isHidden   = false
-        seekToLabel.text    = BMPlayer.formatSecondsToString(toSecound)
+        seekToLabel.text    = BMPlayer.formatSecondsToString(changed)
         
         let rotate = isAdd ? 0 : CGFloat(Double.pi)
         seekToViewImage.transform = CGAffineTransform(rotationAngle: rotate)
@@ -358,6 +358,7 @@ open class BMPlayerControlView: UIView {
             
             if resource.definitions.count == 1 {
                 button.isEnabled = false
+                button.isHidden = true
             }
         }
     }

@@ -300,7 +300,7 @@ open class BMPlayer: UIView {
         isSliderSliding = true
         if let playerItem = playerLayer?.playerItem {
             // 每次滑动需要叠加时间，通过一定的比例，使滑动一直处于统一水平
-            self.sumTime = self.sumTime + TimeInterval(value) / 100.0 * (TimeInterval(self.totalDuration)/400)
+            self.sumTime = self.sumTime + TimeInterval(value) / 100.0
             
             let totalTime       = playerItem.duration
             
@@ -311,7 +311,9 @@ open class BMPlayer: UIView {
             if (self.sumTime >= totalDuration) { self.sumTime = totalDuration}
             if (self.sumTime <= 0){ self.sumTime = 0}
             
-            controlView.showSeekToView(to: sumTime, total: totalDuration, isAdd: value > 0)
+            if value != 0 {
+                controlView.showSeekToView(to: sumTime, changed: abs(sumTime-currentPosition), total: totalDuration, isAdd: value > 0)
+            }
         }
     }
     
