@@ -392,6 +392,7 @@ open class BMPlayer: UIView {
         }
         
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panDirection(_:)))
+        panGesture.delegate = self
         self.addGestureRecognizer(panGesture)
     }
     
@@ -568,5 +569,14 @@ extension BMPlayer: BMPlayerControlViewDelegate {
     
     open func controlView(controlView: BMPlayerControlView, didChangeVideoPlaybackRate rate: Float) {
         self.playerLayer?.player?.rate = rate
+    }
+}
+
+extension BMPlayer: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view is UISlider {
+            return false
+        }
+        return true
     }
 }
